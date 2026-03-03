@@ -24,3 +24,5 @@ make run
 cmake -S . -B build     # sfml depednecies
 cmake --build build     # build 
 ```
+
+> **FOR VSCODE USERS:** if squiggly red lines on include statements use the `clangd` extension instead of microsoft c/c++ (its better btw).

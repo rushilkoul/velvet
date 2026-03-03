@@ -51,5 +51,17 @@ target_link_libraries(velvet
         ${SFML_SYSTEM_TARGET}
 )
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+if(CMAKE_EXPORT_COMPILE_COMMANDS)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+    add_custom_target(copy_compile_commands ALL
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_BINARY_DIR}/compile_commands.json
+        ${CMAKE_SOURCE_DIR}/compile_commands.json
+        DEPENDS ${CMAKE_BINARY_DIR}/compile_commands.json
+    )
+endif()
+
 add_executable(velvet_app examples/demo.cpp)
 target_link_libraries(velvet_app PRIVATE velvet)
