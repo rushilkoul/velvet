@@ -35,9 +35,11 @@ else()
     set(SFML_SYSTEM_TARGET sfml-system)
 endif()
 
-add_library(velvet
-    src/placeholder.cpp
+file(GLOB_RECURSE VELVET_SOURCES
+    src/*.cpp
 )
+
+add_library(velvet ${VELVET_SOURCES})
 
 target_include_directories(velvet
     PUBLIC
