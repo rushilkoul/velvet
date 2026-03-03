@@ -4,7 +4,7 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Velvet");
 
-    Button btn(300, 250, 200, 100, "xd");
+    Button btn(20, 20, 200, 100, "hello!");
 
     while (window.isOpen())
     {

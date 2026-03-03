@@ -3,7 +3,6 @@
 
 class Button : public Widget {
     sf::RectangleShape shape;
-    sf::Font font;
     sf::Text text;
 
     sf::Color primaryColor;
@@ -16,6 +15,7 @@ class Button : public Widget {
 
     void draw(sf::RenderWindow &window) override;
     void update(sf::RenderWindow &window) override;
+
 public:
     void render(sf::RenderWindow &window) override;
     void handleEvent(const sf::Event &event) override;
