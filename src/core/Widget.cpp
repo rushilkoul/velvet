@@ -1,7 +1,7 @@
 #include <velvet/core/Widget.hpp>
 
 Widget::Widget() {
-    font.loadFromFile("../assets/arial.ttf");
+    font.loadFromFile("src/assets/arial.ttf");
 }
 
 void Widget::draw(sf::RenderWindow &window) {}
