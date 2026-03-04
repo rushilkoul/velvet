@@ -51,8 +51,6 @@ void Button::update(sf::RenderWindow &window) {
     }
     else {
         shape.setFillColor(primaryColor);
-
-        if (cursor.loadFromSystem(sf::Cursor::Arrow)) window.setMouseCursor(cursor);
         hovered = false;
     }
 
