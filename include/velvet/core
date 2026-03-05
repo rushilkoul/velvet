@@ -1,0 +1,9 @@
+#pragma once
+
+#include <velvet/base/Window.hpp>
+
+//////// core system ////////
+#include <velvet/base/Widget.hpp>
+
+//////// core widgets (always available) ////////
+#include <velvet/widgets/Button.hpp>

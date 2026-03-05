@@ -1,7 +1,7 @@
-#include <velvet/core/Widget.hpp>
+#include <velvet/base/Widget.hpp>
 
 Widget::Widget() {
-    font.loadFromFile("src/assets/arial.ttf");
+    font.loadFromFile("src/assets/space-grotesk.ttf");
 }
 
 void Widget::draw(sf::RenderWindow &window) {}

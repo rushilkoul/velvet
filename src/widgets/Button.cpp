@@ -22,8 +22,6 @@ Button::Button(float x, float y, float width, float height, std::string label, s
         shape.setOutlineThickness(borderThickness);
     }
 
-    font.loadFromFile("src/assets/arial.ttf");
-
     text.setFont(font);
     text.setString(label);
     text.setCharacterSize(20);
