@@ -22,9 +22,11 @@ public:
     void run() {
         while (window.isOpen()) {
             sf::Event event;
+            sf::Cursor cursor;
 
             while (window.pollEvent(event)) {
-
+                if (cursor.loadFromSystem(sf::Cursor::Arrow)) window.setMouseCursor(cursor);
+                
                 if (event.type == sf::Event::Closed)
                     window.close();
 
