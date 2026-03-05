@@ -11,31 +11,59 @@ Button::Button(float x, float y, float width, float height, std::string label, s
     hoverColor = sf::Color::Yellow;
     clickColor = sf::Color::Red;
 
+    defaultTexture.loadFromFile("src/assets/btn.png");
+    sprite.setTexture(defaultTexture);
 
-    shape.setSize(sf::Vector2f(width, height));
+    sprite.setPosition(x, y);
 
-    shape.setPosition(x, y);
-    shape.setFillColor(primaryColor);
+    //shape.setSize(sf::Vector2f(width, height));
+    //shape.setPosition(x, y);
+    //shape.setFillColor(primaryColor);
 
+    /*
     if(borderThickness != 0 && borderThickness > 0) {
         shape.setOutlineColor(borderColor);
         shape.setOutlineThickness(borderThickness);
     }
+    */
+
+    // ---logic resizing the sprite---
+    sf::Vector2u textureSize = defaultTexture.getSize();
+
+    float scaleFactorX = width / textureSize.x;
+    float scaleFactorY = height / textureSize.y;
+    
+    sprite.setScale(scaleFactorX, scaleFactorY);
+
+    font.loadFromFile("src/assets/arial.ttf");
 
     text.setFont(font);
     text.setString(label);
     text.setCharacterSize(20);
     text.setFillColor(sf::Color::Black);
 
+
+
+    // setting origin of text to its center
     sf::FloatRect textBounds = text.getLocalBounds();
     text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
 
     text.setPosition(x + width / 2.0f, y + height / 2.0f);
+    
+    /*
+    sf::FloatRect textBounds = text.getLocalBounds();
+    text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
+
+    text.setPosition(x + width / 2.0f, y + height / 2.0f);
+    */
 }
 
 Button::Button(const Button& other)
     : Widget(other),
-      shape(other.shape),
+      defaultTexture(other.defaultTexture),
+      hoverTexture(other.hoverTexture),
+      clickTexture(other.clickTexture),
+      sprite(other.sprite),
       text(other.text),
       primaryColor(other.primaryColor),
       hoverColor(other.hoverColor),
@@ -47,10 +75,11 @@ Button::Button(const Button& other)
 {
     // reassign font pointer to THIS object's font
     text.setFont(font);
+    sprite.setTexture(defaultTexture);
 }
 
 void Button::draw(sf::RenderWindow &window) {
-    window.draw(shape);
+    window.draw(sprite);
     window.draw(text);
 }
 
@@ -59,22 +88,22 @@ void Button::update(sf::RenderWindow &window) {
     sf::Cursor cursor;
 
     // checking if mouse is hovering the button
-    if (shape.getGlobalBounds().contains(mousePosition)) {
-        shape.setFillColor(hoverColor);
+    if (sprite.getGlobalBounds().contains(mousePosition)) {
+        //shape.setFillColor(hoverColor);
 
         if (cursor.loadFromSystem(sf::Cursor::Hand)) window.setMouseCursor(cursor);
         hovered = true;
     }
     else {
-        shape.setFillColor(primaryColor);
+        //shape.setFillColor(primaryColor);
         hovered = false;
     }
 
-    // clickkk
+    /*
     if (clicked) shape.setFillColor(clickColor);
     else if (hovered) shape.setFillColor(hoverColor);
     else shape.setFillColor(primaryColor);
-
+    */
 }
 
 void Button::render(sf::RenderWindow &window) {
