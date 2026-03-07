@@ -1,9 +1,10 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <velvet/widgets/Button.hpp>
 #include <iostream>
 
-Button::Button(float x, float y, float width, float height, std::string label, sf::Color borderColor, int borderThickness) {
+Button::Button(float width, float height, std::string label, sf::Color borderColor, int borderThickness) : height(height), width(width) {
     hovered = false;
     clicked = false;
 
@@ -32,7 +33,7 @@ Button::Button(float x, float y, float width, float height, std::string label, s
 
     float scaleFactorX = width / textureSize.x;
     float scaleFactorY = height / textureSize.y;
-    
+
     sprite.setScale(scaleFactorX, scaleFactorY);
 
     font.loadFromFile("src/assets/arial.ttf");
@@ -49,7 +50,7 @@ Button::Button(float x, float y, float width, float height, std::string label, s
     text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
 
     text.setPosition(x + width / 2.0f, y + height / 2.0f);
-    
+
     /*
     sf::FloatRect textBounds = text.getLocalBounds();
     text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
@@ -119,4 +120,13 @@ void Button::handleEvent(const sf::Event &event) {
     else {
         clicked = false;
     }
+}
+
+void Button::setPosition(float x, float y) {
+    sprite.setPosition(x, y);
+    text.setPosition(x + width / 2.0f, y + height / 2.0f);
+}
+
+sf::Vector2<float> Button::getBounds() {
+    return sf::Vector2<float>(width, height);
 }
