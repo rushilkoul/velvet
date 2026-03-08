@@ -32,5 +32,5 @@ public:
     Button(float width=100, float height=50, std::string label="button", sf::Color borderColor = sf::Color::White, int borderThickness = 0);
     Button(const Button& other);
     void setPosition(float x, float y) override;
-    sf::Vector2<float> getBounds() override;
+    sf::Vector2<float> getDimensions() override;
 };
