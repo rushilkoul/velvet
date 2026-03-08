@@ -23,31 +23,51 @@ int main() {
 int main() {
     Window window(800, 600, "Velvet");
 
-    Button btn1(300, 120, "[1] im in V1", sf::Color::White, 2);
-    Button btn2(300, 120, "[2] im in V1", sf::Color::White, 2);
-
-    Button btn3(365, 100, "[3] im in V2", sf::Color::White, 2);
-    Button btn4(365, 100, "[4] im in V2", sf::Color::White, 2);
-
-    Button btn5(250, 150, "[4] im in V3", sf::Color::White, 2);
-    Button btn6(220, 100, "[5] im in V3", sf::Color::White, 2);
-
     VStack mainStack(10);
-    VStack v1(10);
-    HStack v2(10);
-    VStack v3(10);
 
-    v1.add(&btn1);
-    v1.add(&btn2);
-    v2.add(&btn3);
-    v2.add(&btn4);
-    v3.add(&btn5);
-    v3.add(&btn6);
+    HStack s1;
 
-    mainStack.add(&v1);
-    mainStack.add(&v2);
-    mainStack.add(&v3);
+    HStack s2(10);
 
+    HStack s3(10);
+    VStack s3a(10);
+    VStack s3b(10);
+
+    Button b1(50, 50, "EGG");
+    Button b2(50, 50, "EGG");
+    Button b3(50, 50, "EGG");
+
+    Button b4(50, 150, "EGG");
+    Button b5(50, 150, "EGG");
+    Button b6(50, 150, "EGG");
+
+    Button b7(75, 50, "EGG");
+    Button b8(75, 50, "EGG");
+
+    Button b9(75, 50, "EGG");
+    Button b10(75, 50, "EGG");
+
+    s1.add(&b1);
+    s1.add(&b2);
+    s1.add(&b3);
+
+    s2.add(&b4);
+    s2.add(&b5);
+    s2.add(&b6);
+
+    s3a.add(&b7);
+    s3a.add(&b8);
+    
+    s3b.add(&b9);
+    s3b.add(&b10);
+
+    mainStack.add(&s1);
+    mainStack.add(&s2);
+    mainStack.add(&s3);
+
+    s3.add(&s3a);
+    s3.add(&s3b);
+    
     window.add(&mainStack);
 
     window.run();

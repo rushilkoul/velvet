@@ -4,7 +4,7 @@
 #include <velvet/widgets/VStack.hpp>
 #include <iostream>
 
-VStack::VStack(float gap = 0) : gap(gap) {}
+VStack::VStack(float gap) : gap(gap) {}
 
 void VStack::draw(sf::RenderWindow &window) {
     for (Widget* child : children) {
@@ -41,7 +41,7 @@ void VStack::setPosition(float x, float y) {
 sf::Vector2f VStack::getDimensions() {
     float height = 0;
     float width = 0;
-    
+
     for (Widget* child : children) {
         sf::Vector2f childDims = child->getDimensions();
 

@@ -4,7 +4,7 @@
 #include <velvet/widgets/HStack.hpp>
 #include <iostream>
 
-HStack::HStack(float gap = 0) : gap(gap) {}
+HStack::HStack(float gap) : gap(gap) {}
 
 void HStack::draw(sf::RenderWindow &window) {
     for (Widget* child : children) {

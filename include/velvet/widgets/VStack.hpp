@@ -22,6 +22,6 @@ public:
     void add(Widget* widget);
     void setPosition(float x, float y) override;
     sf::Vector2f getDimensions() override;
-    VStack(float gap);
+    VStack(float gap=0);
 
 };
