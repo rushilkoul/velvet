@@ -25,7 +25,7 @@ int main() {
 
     VStack mainStack(10);
 
-    HStack s1;
+    HStack s1(10);
 
     HStack s2(10);
 
@@ -33,19 +33,19 @@ int main() {
     VStack s3a(10);
     VStack s3b(10);
 
-    Button b1(50, 50, "EGG");
-    Button b2(50, 50, "EGG");
-    Button b3(50, 50, "EGG");
+    Button b1(100, 100, "EGG");
+    Button b2(100, 100, "EGG");
+    Button b3(100, 100, "EGG");
 
-    Button b4(50, 150, "EGG");
-    Button b5(50, 150, "EGG");
-    Button b6(50, 150, "EGG");
+    Button b4(100, 300, "EGG");
+    Button b5(100, 300, "EGG");
+    Button b6(100, 300, "EGG");
 
-    Button b7(75, 50, "EGG");
-    Button b8(75, 50, "EGG");
+    Button b7(150, 100, "EGG");
+    Button b8(150, 100, "EGG");
 
-    Button b9(75, 50, "EGG");
-    Button b10(75, 50, "EGG");
+    Button b9(150, 100, "EGG");
+    Button b10(150, 100, "EGG");
 
     s1.add(&b1);
     s1.add(&b2);

@@ -20,7 +20,7 @@ void VStack::update(sf::RenderWindow &window) {
         child->setPosition(x_pos, y_pos);
 
         sf::Vector2f dims = child->getDimensions();
-        y_pos += dims.y;
+        y_pos += dims.y + gap;
     }
 }
 
@@ -45,12 +45,13 @@ sf::Vector2f VStack::getDimensions() {
     for (Widget* child : children) {
         sf::Vector2f childDims = child->getDimensions();
 
-        height += childDims.y;
+        height += childDims.y + gap;
 
         if (width < childDims.x) {
             width = childDims.x;
         }
     }
-
+    height -= gap;
+    
     return sf::Vector2f(width, height);
 }

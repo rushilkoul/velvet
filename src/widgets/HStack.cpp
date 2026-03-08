@@ -20,7 +20,7 @@ void HStack::update(sf::RenderWindow &window) {
         child->setPosition(x_pos, y_pos);
 
         sf::Vector2f dims = child->getDimensions();
-        x_pos += dims.x;
+        x_pos += dims.x + gap;
     }
 }
 
@@ -41,15 +41,17 @@ void HStack::setPosition(float x, float y) {
 sf::Vector2f HStack::getDimensions() {
     float height = 0;
     float width = 0;
+    
     for (Widget* child : children) {
         sf::Vector2f childDims = child->getDimensions();
 
-        width += childDims.x;
+        width += childDims.x + gap;
 
         if (height < childDims.y) {
             height = childDims.y;
         }
     }
+    width -= gap;
 
     return sf::Vector2f(width, height);
 }
