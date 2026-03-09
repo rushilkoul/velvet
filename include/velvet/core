@@ -7,6 +7,5 @@
 
 
 //////// core widgets (always available) ////////
-#include <velvet/widgets/VStack.hpp>
-#include <velvet/widgets/HStack.hpp>
+#include <velvet/widgets/Stack.hpp>
 #include <velvet/widgets/Button.hpp>
