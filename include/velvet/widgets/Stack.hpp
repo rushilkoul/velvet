@@ -94,6 +94,12 @@ public:
         return sf::Vector2f(cachedWidth, cachedHeight);
     }
 
+    void handleEvent(const sf::Event& event) override {
+        for (Widget* child : children) {
+            child->handleEvent(event);
+        }
+    }
+
     void setGap(float g) {
         if (gap != g) {
             gap = g;
