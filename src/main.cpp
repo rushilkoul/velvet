@@ -13,7 +13,7 @@ int main() {
     Button btn(100, 50,"hello");
     Button btn2(100, 50,"hello 2");
     Slider s1(200, 0, 100);
-    Slider s2(300, 0, 100);
+    Slider s2(300, 42, 67);
 
     root.add(&btn);
     root.add(&s1);

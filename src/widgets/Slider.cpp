@@ -5,11 +5,11 @@
 #include <iostream>
 #include <velvet/widgets/Slider.hpp>
 
-Slider::Slider(float size, float from, float to) {
+Slider::Slider(float size, float from, float to) : from(from), to(to) {
 
     thumbBeingPressed = false;
     hovered = false;
-    sliderValue = 0;
+    sliderValue = from;
     length = size;
 
     active_part.setSize(sf::Vector2f(0, thickness));
@@ -71,8 +71,8 @@ void Slider::handleEvent(const sf::Event &event, sf::RenderWindow &window) {
         active_part.setSize(sf::Vector2f(clampedX - sliderPos.x + 10, thickness));
         thumb.setPosition(sf::Vector2f(clampedX, thumb.getPosition().y));
 
-        // std::cout << "VALUE: " << minX + clampedX / maxX << " \n";
-        changeValue(minX + clampedX / maxX);
+        float value = from + (clampedX - minX) / (maxX - minX) * (to - from); /// ugly but works shh
+        changeValue(value);
     }
 }
 
@@ -86,7 +86,7 @@ sf::Vector2<float> Slider::getDimensions() {
     return sf::Vector2f(length, thickness);
 }
 
-// not implemented yet
 void Slider::changeValue(float value) {
     sliderValue = value;
+    std::cout << "VALUE: " << sliderValue << " \n";
 }
