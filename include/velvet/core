@@ -9,3 +9,4 @@
 //////// core widgets (always available) ////////
 #include <velvet/widgets/Stack.hpp>
 #include <velvet/widgets/Button.hpp>
+#include <velvet/widgets/Slider.hpp>

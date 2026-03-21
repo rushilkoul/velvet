@@ -1,0 +1,30 @@
+#include <SFML/System/Vector2.hpp>
+#include <velvet/base/Widget.hpp>
+#include <SFML/Graphics/Color.hpp>
+
+class Slider : public Widget {
+private:
+    sf::RectangleShape active_part;
+    sf::RectangleShape inactive_part;
+    sf::RectangleShape thumb;
+
+    float height, width;
+    float from, to;
+    float sliderValue;
+    float thickness = 20;
+    float length;
+
+    bool thumbBeingPressed;
+    bool hovered;
+
+    void draw(sf::RenderWindow &window) override;
+    void update(sf::RenderWindow &window) override;
+
+public:
+    void render(sf::RenderWindow &window) override;
+    void handleEvent(const sf::Event &event, sf::RenderWindow &window) override;
+    void setPosition(float x, float y) override;
+    sf::Vector2f getDimensions() override;
+    Slider(float size, float from, float to);
+    void changeValue(float value);
+};
