@@ -5,7 +5,9 @@
 #include <iostream>
 
 Label::Label(std::string text, int fontSize) {
-    font.loadFromFile("src/assets/arial.ttf");
+    if (!font.loadFromFile("src/assets/space-grotesk.ttf")) {
+        std::cerr << "Warning: failed to load font src/assets/space-grotesk.ttf" << std::endl;
+    }
 
     LText.setFont(font);
     LText.setString(text);
@@ -21,6 +23,9 @@ void Label::draw(sf::RenderWindow &window) {
 
 void Label::update(sf::RenderWindow &window) {
     
+}
+void Label::setText(const std::string txt) {
+    LText.setString(txt);
 }
 
 void Label::render(sf::RenderWindow &window) {

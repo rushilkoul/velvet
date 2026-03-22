@@ -7,6 +7,9 @@ class Window {
     sf::RenderWindow window;
     sf::Color backgroundColor;
     std::vector<Widget*> widgets;
+    
+    void add_widget(Widget* w) { add(w); }
+    void add_widget(Widget& w) { add(&w); }
 
 public:
     Window(int width, int height, const std::string& title)
@@ -18,6 +21,11 @@ public:
     void setBackgroundColor(sf::Color color) { backgroundColor = color; }
 
     void add(Widget* widget) { widgets.push_back(widget); }
+
+    template<typename... Ts>
+    void add(Ts&&... widgets_list) {
+        (add_widget(std::forward<Ts>(widgets_list)), ...);
+    }
 
     bool isOpen() { return window.isOpen(); }
 
@@ -48,4 +56,6 @@ public:
             window.display();
         }
     }
+
+
 };

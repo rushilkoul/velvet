@@ -14,7 +14,9 @@ Button::Button(float width, float height, std::string label, sf::Color borderCol
     hoverColor = sf::Color::Yellow;
     clickColor = sf::Color::Red;
 
-    defaultTexture.loadFromFile("src/assets/btn.png");
+    if (!defaultTexture.loadFromFile("src/assets/btn.png")) {
+        std::cerr << "Warning: failed to load texture src/assets/btn.png" << std::endl;
+    }
     sprite.setTexture(defaultTexture);
 
     sprite.setPosition(x, y);
@@ -38,7 +40,9 @@ Button::Button(float width, float height, std::string label, sf::Color borderCol
 
     sprite.setScale(scaleFactorX, scaleFactorY);
 
-    font.loadFromFile("src/assets/arial.ttf");
+    if (!font.loadFromFile("src/assets/space-grotesk.ttf")) {
+        std::cerr << "Warning: failed to load font src/assets/space-grotesk.ttf" << std::endl;
+    }
 
     text.setFont(font);
     text.setString(label);

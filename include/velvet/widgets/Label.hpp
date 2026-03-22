@@ -16,6 +16,7 @@ public:
     void setPosition(float x, float y) override;
     sf::Vector2f getDimensions() override;
     Label(std::string text, int fontSize = 20);
+    void setText(const std::string txt);
 
     void setLineSpacing(float spacingFactor) { LText.setLineSpacing(spacingFactor); }
 };

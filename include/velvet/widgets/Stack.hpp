@@ -53,7 +53,6 @@ private:
 
 public:
     Stack(StackDirection dir, float gap = 0) : direction(dir), gap(gap), nextPos(0) {}
-
     void render(sf::RenderWindow& window) override {
         update(window);
         draw(window);
@@ -81,6 +80,15 @@ public:
 
         children.push_back(widget);
     }
+
+    template<typename... Ts>
+    void add(Ts&&... widgets) {
+        (add_widget(std::forward<Ts>(widgets)), ...);
+    }
+
+private:
+    void add_widget(Widget* w) { add(w); }
+    void add_widget(Widget& w) { add(&w); }
 
     void setPosition(float x, float y) override {
         if (xPos != x || yPos != y) {

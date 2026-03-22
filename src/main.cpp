@@ -7,7 +7,7 @@ void extremelysad(const std::string s) {
 }
 
 int main() {
-    Window window(800, 600, "Velvet");
+    Window window(800, 900, "Velvet");
 
     VStack root(10);
     
@@ -21,25 +21,20 @@ int main() {
     Label l2("hello", 50);
     Label l3("hello", 100);
 
-    Image img("/home/kavoya/projects/velvet/src/assets/funnycat.png");
+    Image img("src/assets/funnycat.png");
     img.setScale(0.5, 0.5);
 
 
-    root.add(&btn);
-    root.add(&s1);
-    root.add(&l2);
-    root.add(&btn2);
-    root.add(&s2);
-    root.add(&l1);
-    root.add(&img);
-    root.add(&l3);
+    root.add(btn, s1, l2, btn2, s2, l1, img, l3);
 
     btn.onclick = [] { std::cout << "top of the morning :D\n"; };
-
-    btn2.onclick = [] { 
+    int i = 0;
+    btn2.onclick = [&] { 
         extremelysad("T_T");
+        l2.setText("good morning america " + std::to_string(i));
+        i++;
     };
 
-    window.add(&root);
+    window.add(root);
     window.run();
 }
