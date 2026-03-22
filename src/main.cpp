@@ -1,53 +1,92 @@
-#include "velvet/widgets/Stack.hpp"
 #include <velvet/core>
-#include <iostream>
-
-void extremelysad(const std::string s) {
-    std::cout << "bottom of the morning " + s + "\n"; 
-}
+#include <string>
 
 int main() {
-    Window window(800, 900, "Velvet");
+    Window window(1000, 600, "Velvet");
 
-    VStack root(10);
+    HStack root(30);
+    root.setAlignItems("start");
+
+    // left panel //////////////////////////////////
+    VStack controls(15);
+    controls.setWidth(300);
+    controls.setJustifyContent("center");
+
+    Label title("Velvet Demo", {
+        {"fontSize", 28.f}, 
+        {"fillColor", 0x1F1F1FFFu}
+    });
     
-    Button btn(100, 50,"hello");
-    Button btn2(100, 50,"hello 2");
+    Label valueLabel("Slider Value: ", {{"fontSize", 18.f}});
 
-    Slider s1(200, 0, 100);
-    Slider s2(300, 42, 67);
+    Slider slider(200, 0, 100);
 
-    Label l1("hello", {
-        {"fontSize", 50.f},
+    Button incrementBtn(200, 40, "Increment counter");
+    Button resetBtn(200, 40, "Reset");
+
+    // right panel //////////////////////////////////
+    VStack preview(20);
+    preview.setAlignItems("center");
+    
+    Label previewTitle("Live Preview", {
+        {"fontSize", 18.f},
+    });
+    
+    Label dynamicText("Hello, Velvet!", {
+        {"fontSize", 40.f}, 
+        {"fillColor", 0xA447FAFFu},
+        {"fontStyle", "bold"}
+
+    });
+
+    Label bleh("Counter: 0");
+    Label lol("this cat is very precious. take care of it, traveller.",
+    {
         {"fontStyle", "italic"}
     });
 
-    Label l2("hello in red");
-
-    Label l3("hello with outline", {
-        {"fontSize", 75.f},
-        {"fillColor", 0xFF00FFFFu},
-        {"outlineThickness", 3.f},
-        {"outlineColor", 0x00FF00FFu}
-    });
-
     Image img("src/assets/funnycat.png");
-    img.setScale(0.5, 0.5);
+    img.setScale(0.4, 0.4);
 
 
-    root.add(btn, s1, l2, btn2, s2, l1, img, l3);
+    /////////////////////
+    int counter = 0;
 
-    btn.onclick = [] { std::cout << "top of the morning :D\n"; };
-    int i = 0;
-    btn2.onclick = [&] { 
-        extremelysad("T_T");
-        l2.setText("good morning america " + std::to_string(i));
-        i++;
-
-        l2.overrideStyling({
-            {"fillColor", 0x0000FFFFu}
-        });
+    incrementBtn.onclick = [&] {
+        counter++;
+            bleh.setText("Count: " + std::to_string(counter));
     };
+    
+    resetBtn.onclick = [&] {
+        counter = 0;
+            bleh.setText("Count: " + std::to_string(counter));
+        // dynamicText.setText("Reset!");
+    };
+    
+    slider.onchange = [&](float v) {
+        valueLabel.setText("Slider Value: " + std::to_string((int)v));
+        img.setScale(0.3 + v/200.0f, 0.3 + v/200.0f);
+    };
+
+    controls.setBackgroundColor(sf::Color(211, 163, 255, 220));controls.setHeight(570);
+    // controls.setBackgroundColor(sf::Color(211, 163, 255, 220));controls.setHeight(570);
+    controls.add(
+        title,
+        valueLabel,
+        slider,
+        incrementBtn,
+        resetBtn
+    );
+
+    preview.add(
+        previewTitle,
+        dynamicText,
+        bleh,
+        lol,
+        img
+    );
+
+    root.add(controls,&preview);
 
     window.add(root);
     window.run();

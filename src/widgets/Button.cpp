@@ -40,8 +40,8 @@ Button::Button(float width, float height, std::string label, sf::Color borderCol
 
     sprite.setScale(scaleFactorX, scaleFactorY);
 
-    if (!font.loadFromFile("src/assets/space-grotesk.ttf")) {
-        std::cerr << "Warning: failed to load font src/assets/space-grotesk.ttf" << std::endl;
+    if (!font.loadFromFile("src/assets/AdwaitaSans-Regular.ttf")) {
+        std::cerr << "Warning: failed to load font src/assets/AdwaitaSans-Regular.ttf" << std::endl;
     }
 
     text.setFont(font);
@@ -121,7 +121,6 @@ void Button::render(sf::RenderWindow &window) {
 void Button::handleEvent(const sf::Event &event, sf::RenderWindow &window) {
     if (hovered && event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
         clicked = true;
-        // std::cout << std::endl << "clicked button!" << std::endl;
         if (onclick) onclick();
     }
     else {

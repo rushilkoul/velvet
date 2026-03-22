@@ -73,6 +73,7 @@ void Slider::handleEvent(const sf::Event &event, sf::RenderWindow &window) {
 
         float value = from + (clampedX - minX) / (maxX - minX) * (to - from); /// ugly but works shh
         changeValue(value);
+        if (onchange) onchange(value);
     }
 }
 
@@ -88,5 +89,8 @@ sf::Vector2<float> Slider::getDimensions() {
 
 void Slider::changeValue(float value) {
     sliderValue = value;
-    std::cout << "VALUE: " << sliderValue << " \n";
+}
+
+float Slider::getValue() {
+    return sliderValue;
 }

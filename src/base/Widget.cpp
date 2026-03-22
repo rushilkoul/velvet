@@ -1,7 +1,7 @@
 #include <velvet/base/Widget.hpp>
 
 Widget::Widget() {
-    font.loadFromFile("src/assets/space-grotesk.ttf");
+    font.loadFromFile("src/assets/AdwaitaSans-Regular.ttf");
 }
 
 void Widget::draw(sf::RenderWindow &window) {}
