@@ -2,7 +2,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
-#include <iostream>
 #include <velvet/widgets/Slider.hpp>
 
 Slider::Slider(float size, float from, float to) : from(from), to(to) {

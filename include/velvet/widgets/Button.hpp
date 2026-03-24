@@ -4,7 +4,6 @@
 #include <functional>
 
 class Button : public Widget {
-    //sf::RectangleShape shape;
     sf::Texture defaultTexture;
     sf::Texture hoverTexture;
     sf::Texture clickTexture;

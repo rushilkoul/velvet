@@ -8,7 +8,7 @@
 Label::Label(std::string text, std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styling) {
     std::string fontPath = "src/assets/AdwaitaSans-Regular.ttf";
     if (!font.loadFromFile(fontPath)) {
-        std::cerr << "\033[33mWarning: Failed to load font: '" << fontPath << "'\033[0m" << std::endl;
+        std::cerr << "\033[33m[Warning] (Label) Failed to load font: '" << fontPath << "'\033[0m" << std::endl;
     }
 
     LText.setFont(font);
@@ -54,7 +54,7 @@ void Label::overrideStyling(std::unordered_map<std::string, std::variant<unsigne
             styles[key] = val;
         }
         else {
-            std::cerr << "\033[33mWarning: Invalid style property: '" << key << "'\033[0m" << std::endl;
+        std::cerr << "\033[33m[Warning] (Label) Invalid style property: '" << key << "'\033[0m" << std::endl;
        }
     } 
 
@@ -78,7 +78,7 @@ void Label::overrideStyling(std::unordered_map<std::string, std::variant<unsigne
         LText.setStyle(sf::Text::Italic);
     }
     else {
-        std::cerr << "\033[33mWarning: Invalid font style: '" << textStyle << "'\033[0m" << std::endl;
+        std::cerr << "\033[33m[Warning] (Label) Invalid font style: '" << textStyle << "'\033[0m" << std::endl;
     }
 
     LText.setCharacterSize(std::get<float>(styles.at("fontSize")));

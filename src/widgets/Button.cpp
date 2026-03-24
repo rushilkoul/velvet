@@ -14,25 +14,15 @@ Button::Button(float width, float height, std::string label, sf::Color borderCol
     hoverColor = sf::Color::Yellow;
     clickColor = sf::Color::Red;
 
-    if (!defaultTexture.loadFromFile("src/assets/btn.png")) {
-        std::cerr << "Warning: failed to load texture src/assets/btn.png" << std::endl;
+    std::string texturePath = "src/assets/btn.png";
+    if (!defaultTexture.loadFromFile(texturePath)) {
+        std::cerr << "\033[33m[Warning] (Button) Failed to load texture: '" << texturePath << "'\033[0m" << std::endl;
     }
-    sprite.setTexture(defaultTexture);
 
+    sprite.setTexture(defaultTexture);
     sprite.setPosition(x, y);
 
-    //shape.setSize(sf::Vector2f(width, height));
-    //shape.setPosition(x, y);
-    //shape.setFillColor(primaryColor);
-
-    /*
-    if(borderThickness != 0 && borderThickness > 0) {
-        shape.setOutlineColor(borderColor);
-        shape.setOutlineThickness(borderThickness);
-    }
-    */
-
-    // ---logic resizing the sprite---
+    // ---logic for resizing the sprite---
     sf::Vector2u textureSize = defaultTexture.getSize();
 
     float scaleFactorX = width / textureSize.x;
@@ -40,8 +30,9 @@ Button::Button(float width, float height, std::string label, sf::Color borderCol
 
     sprite.setScale(scaleFactorX, scaleFactorY);
 
-    if (!font.loadFromFile("src/assets/AdwaitaSans-Regular.ttf")) {
-        std::cerr << "Warning: failed to load font src/assets/AdwaitaSans-Regular.ttf" << std::endl;
+    std::string fontPath = "src/assets/AdwaitaSans-Regular.ttf";
+    if (!font.loadFromFile(fontPath)) {
+        std::cerr << "\033[33m[Warning] (Button) Failed to load font: '" << fontPath << "'\033[0m" << std::endl;
     }
 
     text.setFont(font);
@@ -49,20 +40,11 @@ Button::Button(float width, float height, std::string label, sf::Color borderCol
     text.setCharacterSize(20);
     text.setFillColor(sf::Color::Black);
 
-
-
     // setting origin of text to its center
     sf::FloatRect textBounds = text.getLocalBounds();
     text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
 
     text.setPosition(x + width / 2.0f, y + height / 2.0f);
-
-    /*
-    sf::FloatRect textBounds = text.getLocalBounds();
-    text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
-
-    text.setPosition(x + width / 2.0f, y + height / 2.0f);
-    */
 }
 
 Button::Button(const Button& other)
@@ -96,21 +78,12 @@ void Button::update(sf::RenderWindow &window) {
 
     // checking if mouse is hovering the button
     if (sprite.getGlobalBounds().contains(mousePosition)) {
-        //shape.setFillColor(hoverColor);
-
         if (cursor.loadFromSystem(sf::Cursor::Hand)) window.setMouseCursor(cursor);
         hovered = true;
     }
     else {
-        //shape.setFillColor(primaryColor);
         hovered = false;
     }
-
-    /*
-    if (clicked) shape.setFillColor(clickColor);
-    else if (hovered) shape.setFillColor(hoverColor);
-    else shape.setFillColor(primaryColor);
-    */
 }
 
 void Button::render(sf::RenderWindow &window) {

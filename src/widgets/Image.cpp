@@ -7,7 +7,7 @@
 Image::Image(std::string filePath) {
     if (!imageTexture.loadFromFile(filePath)) {
         // TODO: implement error
-        std::cout << "Error loading image." << std::endl;
+        std::cerr << "\033[33m[Warning] (Image) Failed to load image: '" << filePath << "'\033[0m" << std::endl;
     }
 
     imageSprite.setTexture(imageTexture);
