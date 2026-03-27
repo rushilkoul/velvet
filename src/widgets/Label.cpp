@@ -18,14 +18,18 @@ Label::Label(std::string text, std::unordered_map<std::string, std::variant<unsi
     overrideStyling(styling);
 
     LText.setPosition(x, y);
+
+    backgroundShape.setPosition(x, y);
+    backgroundShape.setSize(getDimensions());
 }
 
 void Label::draw(sf::RenderWindow &window) {
+    window.draw(backgroundShape);
     window.draw(LText);
 }
 
 void Label::update(sf::RenderWindow &window) {
-    
+
 }
 void Label::setText(const std::string txt) {
     LText.setString(txt);
@@ -37,6 +41,7 @@ void Label::render(sf::RenderWindow &window) {
 }
 
 void Label::setPosition(float x, float y) {
+    backgroundShape.setPosition(x, y);
     LText.setPosition(x, y);
 }
 
@@ -56,7 +61,13 @@ void Label::overrideStyling(std::unordered_map<std::string, std::variant<unsigne
         else {
         std::cerr << "\033[33m[Warning] (Label) Invalid style property: '" << key << "'\033[0m" << std::endl;
        }
-    } 
+    }
+
+    std::string customFontPath;
+    customFontPath = std::get<std::string>(styles.at("fontPath"));
+    if (!font.loadFromFile(customFontPath)) {
+        std::cerr << "\033[33m[Warning] (Label) Failed to load font: '" << customFontPath << "'\033[0m" << std::endl;
+    }
 
     std::string textStyle;
     textStyle = std::get<std::string>(styles.at("fontStyle"));
@@ -80,6 +91,8 @@ void Label::overrideStyling(std::unordered_map<std::string, std::variant<unsigne
     else {
         std::cerr << "\033[33m[Warning] (Label) Invalid font style: '" << textStyle << "'\033[0m" << std::endl;
     }
+
+    backgroundShape.setFillColor(sf::Color(std::get<unsigned int>(styles.at("backgroundColor"))));
 
     LText.setCharacterSize(std::get<float>(styles.at("fontSize")));
     LText.setLineSpacing(std::get<float>(styles.at("lineSpacing")));

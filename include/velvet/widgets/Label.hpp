@@ -1,3 +1,4 @@
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <unordered_map>
 #include <variant>
@@ -8,15 +9,18 @@ class Label : public Widget {
 private:
     sf::Text LText;
     sf::Font font;
+    sf::RectangleShape backgroundShape;
 
     std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styles = {
+        {"fontPath", "src/assets/AdwaitaSans-Regular.ttf"},
         {"fontSize", 20.f},
         {"lineSpacing", 1.f},
         {"letterSpacing", 1.f},
         {"fillColor", 0x000000FFu},
         {"outlineColor", 0xFFFFFFFFu},
         {"outlineThickness", 0.f},
-        {"fontStyle", "regular"}
+        {"fontStyle", "regular"},
+        {"backgroundColor", 0x00000000u}
     };
 
     void draw(sf::RenderWindow &window) override;

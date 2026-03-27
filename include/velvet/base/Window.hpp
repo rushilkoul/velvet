@@ -18,7 +18,7 @@ public:
             window.setFramerateLimit(60);
           }
 
-    void setBackgroundColor(sf::Color color) { backgroundColor = color; }
+    void setBackgroundColor(unsigned int hexCode) { backgroundColor = sf::Color(hexCode); }
 
     void add(Widget* widget) { widgets.push_back(widget); }
 
@@ -55,5 +55,9 @@ public:
 
             window.display();
         }
+    }
+
+    void close() {
+        window.close();
     }
 };

@@ -14,7 +14,7 @@ int main() {
 
     Label title("Velvet Demo", {
         {"fontSize", 28.f}, 
-        {"fillColor", 0x1F1F1FFFu}
+        {"fillColor", 0x1F1F1FFFu},
     });
     
     Label valueLabel("Slider Value: ", {{"fontSize", 18.f}});
@@ -35,15 +35,22 @@ int main() {
     Label dynamicText("Hello, Velvet!", {
         {"fontSize", 40.f}, 
         {"fillColor", 0xA447FAFFu},
-        {"fontStyle", "bold"}
-
+        {"fontStyle", "bold"},
+        {"fontPath", "src/assets/space-grotesk.ttf"}
     });
 
     Label bleh("Counter: 0");
-    Label lol("this cat is very precious. take good care of it, traveller.",
-    {
-        {"fontStyle", "italic"}
+    
+    HStack message(0);
+
+    Label lol1("this cat is ",{{"fontStyle", "italic"}});
+    Label lol2("very precious",{
+        {"fontStyle", "italic"},
+        {"backgroundColor", 0xFFED29FFu}
     });
+    Label lol3(". take good care of it, traveller.",{{"fontStyle", "italic"}});
+
+    message.add(lol1, lol2, lol3);
 
     Image img("src/assets/funnycat.png");
     img.setScale(0.4, 0.4);
@@ -60,7 +67,6 @@ int main() {
     resetBtn.onclick = [&] {
         counter = 0;
             bleh.setText("Count: " + std::to_string(counter));
-        // dynamicText.setText("Reset!");
     };
     
     slider.onchange = [&](float v) {
@@ -69,7 +75,6 @@ int main() {
     };
 
     controls.setBackgroundColor(sf::Color(211, 163, 255, 220));controls.setHeight(570);
-    // controls.setBackgroundColor(sf::Color(211, 163, 255, 220));controls.setHeight(570);
     controls.add(
         title,
         valueLabel,
@@ -82,7 +87,7 @@ int main() {
         previewTitle,
         dynamicText,
         bleh,
-        lol,
+        message,
         img
     );
 
