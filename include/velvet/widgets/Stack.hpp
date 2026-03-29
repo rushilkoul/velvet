@@ -27,7 +27,10 @@ private:
     StackAlign align = StackAlign::Start;
 
     float gap;
-    float padding = 8.0f;
+    float paddingLeft = 8.0f;
+    float paddingRight = 8.0f;
+    float paddingTop = 8.0f;
+    float paddingBottom = 8.0f;
 
     sf::Color backgroundColor = sf::Color(0, 0, 0, 0);
     sf::RectangleShape backgroundShape;
@@ -144,24 +147,26 @@ private:
             (direction == StackDirection::Horizontal) ? explicitWidth : explicitHeight;
         const float startMain = calculateStartOffset(availableMain, contentMain);
 
-        float pos = (direction == StackDirection::Horizontal) ? xPos + padding + startMain : yPos + padding + startMain;
+        float pos = (direction == StackDirection::Horizontal)
+                ? xPos + paddingLeft + startMain
+                : yPos + paddingTop + startMain;
 
         for (Widget* child : children) {
             const sf::Vector2f dims = child->getDimensions();
 
             if (direction == StackDirection::Horizontal) {
                 const float crossOffset = calculateCrossOffset(explicitHeight, dims.y);
-                child->setPosition(pos, yPos + padding + crossOffset);
+                child->setPosition(pos, yPos + paddingTop + crossOffset);
                 pos += dims.x + gap;
             } else {
                 const float crossOffset = calculateCrossOffset(explicitWidth, dims.x);
-                child->setPosition(xPos + padding + crossOffset, pos);
+                child->setPosition(xPos + paddingLeft + crossOffset, pos);
                 pos += dims.y + gap;
             }
         }
 
-        const float totalWidth = std::max(cachedWidth, explicitWidth) + padding * 2;
-        const float totalHeight = std::max(cachedHeight, explicitHeight) + padding * 2;
+        const float totalWidth = std::max(cachedWidth, explicitWidth) + paddingLeft + paddingRight;
+        const float totalHeight = std::max(cachedHeight, explicitHeight) + paddingTop + paddingBottom;
         backgroundShape.setPosition(xPos, yPos);
         backgroundShape.setSize(sf::Vector2f(totalWidth, totalHeight));
         backgroundShape.setFillColor(backgroundColor);
@@ -199,8 +204,8 @@ public:
 
     sf::Vector2f getDimensions() override {
         return sf::Vector2f(
-            std::max(cachedWidth, explicitWidth) + padding * 2,
-            std::max(cachedHeight, explicitHeight) + padding * 2
+            std::max(cachedWidth, explicitWidth) + paddingLeft + paddingRight,
+            std::max(cachedHeight, explicitHeight) + paddingTop + paddingBottom
         );
     }
 
@@ -264,13 +269,32 @@ public:
     }
 
     void setPadding(float p) {
-        if (padding != p) {
-            padding = p;
-            dirty = true;
-        }
+        paddingLeft = p;
+        paddingRight = p;
+        paddingTop = p;
+        paddingBottom = p;
+        
+        dirty = true;
     }
 
-    float getPadding() const { return padding; }
+    void setPadding(float horizontal, float vertical) {
+        paddingLeft = horizontal;
+        paddingRight = horizontal;
+
+        paddingTop = vertical;
+        paddingBottom = vertical;
+
+        dirty = true;
+    }
+
+    void setPadding(float left, float right, float top, float bottom) {
+        paddingLeft = left;
+        paddingRight = right;
+        paddingTop = top;
+        paddingBottom = bottom;
+
+        dirty = true;
+    }
 
     void setBackgroundColor(sf::Color color) {
         if (backgroundColor.r != color.r || backgroundColor.g != color.g ||

@@ -14,7 +14,7 @@ int main() {
 
     Label title("Velvet Demo", {
         {"fontSize", 28.f}, 
-        {"fillColor", 0x1F1F1FFFu},
+        {"fillColor", 0x1F1F1FFFu}
     });
     
     Label valueLabel("Slider Value: ", {{"fontSize", 18.f}});
@@ -42,6 +42,7 @@ int main() {
     Label bleh("Counter: 0");
     
     HStack message(0);
+    message.setPadding(0, 0, 0 , 20);
 
     Label lol1("this cat is ",{{"fontStyle", "italic"}});
     Label lol2("very precious",{
