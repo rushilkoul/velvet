@@ -22,6 +22,8 @@ private:
     bool focused;
 
     std::string type;
+    std::string content;
+    std::string placeholder;
 
     std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styles = {
         {"fontPath", "src/assets/AdwaitaSans-Regular.ttf"},
@@ -40,8 +42,6 @@ private:
     void drawText(sf::Text, sf::RenderWindow &window);
     void updateScroll();
 public:
-    std::string content;
-    std::string placeholder;
     void render(sf::RenderWindow &window) override;
     void setPosition(float x, float y) override;
     void handleEvent(const sf::Event &event, sf::RenderWindow &window) override;
@@ -49,4 +49,11 @@ public:
     InputField(std::string placeholder = "", std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styling = {});
 
     void overrideStyling(std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styling);
+
+    //getters
+    std::string getContent();
+    std::string getPlaceholder();
+
+    //setters
+    void setPlaceholder(std::string placeholderString);
 };

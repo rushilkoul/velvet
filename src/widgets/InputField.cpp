@@ -143,3 +143,15 @@ void InputField::overrideStyling(std::unordered_map<std::string, std::variant<un
     placeholderText.setLetterSpacing(std::get<float>(styles.at("letterSpacing")));
     placeholderText.setFillColor(sf::Color(std::get<unsigned int>(styles.at("placeholderColor"))));
 }
+
+std::string InputField::getContent() {
+    return content;
+}
+
+std::string InputField::getPlaceholder() {
+    return placeholder;
+}
+
+void InputField::setPlaceholder(std::string placeholderString) {
+    placeholder = placeholderString;
+}
