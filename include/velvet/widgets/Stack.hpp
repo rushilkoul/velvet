@@ -6,10 +6,24 @@
 #include <string>
 #include <vector>
 
+/** @brief Layout direction for @ref Stack. */
 enum class StackDirection { Horizontal, Vertical };
+/** @brief Main-axis content alignment for @ref Stack. */
 enum class StackJustify { Start, Center, End };
+/** @brief Cross-axis item alignment for @ref Stack. */
 enum class StackAlign { Start, Center, End };
 
+/**
+ * @brief Container widget that arranges children in a row or column.
+ *
+ * `Stack` is Velvet's primary layout primitive.
+ *
+ * - Horizontal mode (`HStack`): children left-to-right
+ * - Vertical mode (`VStack`): children top-to-bottom
+ *
+ * It supports gap, padding, explicit size, justify/align options,
+ * and optional background color.
+ */
 class Stack : public Widget {
 private:
     float xPos = 0;
@@ -173,17 +187,32 @@ private:
     }
 
 public:
+    /**
+     * @brief Construct a stack with direction and optional gap.
+     */
     Stack(StackDirection dir, float gap = 0) : direction(dir), gap(gap) {}
+
+    /**
+     * @brief Render stack background and child widgets.
+     */
     void render(sf::RenderWindow& window) override {
         update(window);
         draw(window);
     }
 
+    /**
+     * @brief Add a child widget pointer.
+     *
+     * Child widgets must outlive the stack.
+     */
     void add(Widget* widget) {
         children.push_back(widget);
         dirty = true;
     }
 
+    /**
+     * @brief Add one or more child widgets (pointer or reference forms).
+     */
     template<typename... Ts>
     void add(Ts&&... widgets) {
         (add_widget(std::forward<Ts>(widgets)), ...);
@@ -194,6 +223,9 @@ private:
     void add_widget(Widget& w) { add(&w); }
 
 public:
+    /**
+     * @brief Set stack position (top-left).
+     */
     void setPosition(float x, float y) override {
         if (xPos != x || yPos != y) {
             xPos = x;
@@ -202,6 +234,9 @@ public:
         }
     }
 
+    /**
+     * @brief Get total stack dimensions including padding.
+     */
     sf::Vector2f getDimensions() override {
         return sf::Vector2f(
             std::max(cachedWidth, explicitWidth) + paddingLeft + paddingRight,
@@ -209,12 +244,18 @@ public:
         );
     }
 
+    /**
+     * @brief Forward input events to all children.
+     */
     void handleEvent(const sf::Event& event, sf::RenderWindow &window) override {
         for (Widget* child : children) {
             child->handleEvent(event, window);
         }
     }
 
+    /**
+     * @brief Set spacing between children.
+     */
     void setGap(float g) {
         if (gap != g) {
             gap = g;
@@ -222,8 +263,14 @@ public:
         }
     }
 
+    /**
+     * @brief Get current child gap.
+     */
     float getGap() const { return gap; }
 
+    /**
+     * @brief Set main-axis content alignment.
+     */
     void setJustifyContent(StackJustify value) {
         if (justify != value) {
             justify = value;
@@ -231,10 +278,16 @@ public:
         }
     }
 
+    /**
+     * @brief Set main-axis alignment from string (`start|center|end`).
+     */
     void setJustifyContent(const std::string& value) {
         setJustifyContent(parseJustifyOrFallback(value));
     }
 
+    /**
+     * @brief Set cross-axis child alignment.
+     */
     void setAlignItems(StackAlign value) {
         if (align != value) {
             align = value;
@@ -242,10 +295,16 @@ public:
         }
     }
 
+    /**
+     * @brief Set cross-axis alignment from string (`start|center|end`).
+     */
     void setAlignItems(const std::string& value) {
         setAlignItems(parseAlignOrFallback(value));
     }
 
+    /**
+     * @brief Set explicit content size used for alignment calculations.
+     */
     void setSize(float width, float height) {
         if (explicitWidth != width || explicitHeight != height) {
             explicitWidth = width;
@@ -254,6 +313,9 @@ public:
         }
     }
 
+    /**
+     * @brief Set explicit content width.
+     */
     void setWidth(float width) {
         if (explicitWidth != width) {
             explicitWidth = width;
@@ -261,6 +323,9 @@ public:
         }
     }
 
+    /**
+     * @brief Set explicit content height.
+     */
     void setHeight(float height) {
         if (explicitHeight != height) {
             explicitHeight = height;
@@ -268,6 +333,9 @@ public:
         }
     }
 
+    /**
+     * @brief Set uniform padding on all sides.
+     */
     void setPadding(float p) {
         paddingLeft = p;
         paddingRight = p;
@@ -277,6 +345,9 @@ public:
         dirty = true;
     }
 
+    /**
+     * @brief Set horizontal and vertical padding.
+     */
     void setPadding(float horizontal, float vertical) {
         paddingLeft = horizontal;
         paddingRight = horizontal;
@@ -287,6 +358,13 @@ public:
         dirty = true;
     }
 
+    /**
+     * @brief Set side-specific padding.
+     * @param left Left padding.
+     * @param right Right padding.
+     * @param top Top padding.
+     * @param bottom Bottom padding.
+     */
     void setPadding(float left, float right, float top, float bottom) {
         paddingLeft = left;
         paddingRight = right;
@@ -296,6 +374,9 @@ public:
         dirty = true;
     }
 
+    /**
+     * @brief Set container background color.
+     */
     void setBackgroundColor(sf::Color color) {
         if (backgroundColor.r != color.r || backgroundColor.g != color.g ||
             backgroundColor.b != color.b || backgroundColor.a != color.a) {
@@ -309,11 +390,13 @@ public:
 // preserve HStack and VStack class names for backwards compatibility
 // (to be fair its like 4 commits ago but still cmon)
 
+/** @brief Horizontal stack helper (`StackDirection::Horizontal`). */
 class HStack : public Stack {
 public:
     HStack(float gap = 0) : Stack(StackDirection::Horizontal, gap) {}
 };
 
+/** @brief Vertical stack helper (`StackDirection::Vertical`). */
 class VStack : public Stack {
 public:
     VStack(float gap = 0) : Stack(StackDirection::Vertical, gap) {}

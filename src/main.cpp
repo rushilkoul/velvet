@@ -1,99 +1,44 @@
 #include <velvet/core>
-#include <string>
 
 int main() {
-    Window window(1000, 600, "Velvet");
+    Window window(1000, 700, "Welcome to Velvet");
+    VStack root(20);
 
-    HStack root(30);
-    root.setAlignItems("start");
+    Stack stack(StackDirection::Horizontal, 10);
 
-    // left panel //////////////////////////////////
-    VStack controls(15);
-    controls.setWidth(300);
-    controls.setJustifyContent("center");
+    root.setAlignItems("center");
+    root.setWidth(1000);
+    root.setPadding(0, 0, 50, 0);
 
-    Label title("Velvet Demo", {
-        {"fontSize", 28.f}, 
-        {"fillColor", 0x1F1F1FFFu}
-    });
-    
-    Label valueLabel("Slider Value: ", {{"fontSize", 18.f}});
-
-    Slider slider(200, 0, 100);
-
-    Button incrementBtn(200, 40, "Increment counter");
-    Button resetBtn(200, 40, "Reset");
-
-    // right panel //////////////////////////////////
-    VStack preview(20);
-    preview.setAlignItems("center");
-    
-    Label previewTitle("Live Preview", {
-        {"fontSize", 18.f},
-    });
-    
-    Label dynamicText("Hello, Velvet!", {
-        {"fontSize", 40.f}, 
-        {"fillColor", 0xA447FAFFu},
-        {"fontStyle", "bold"},
-        {"fontPath", "src/assets/space-grotesk.ttf"}
+    Label title("Welcome to Velvet!", {
+        {"fontSize", 48.f },
     });
 
-    Label bleh("Counter: 0");
-    
-    HStack message(0);
-    message.setPadding(0, 0, 0 , 20);
 
-    Label lol1("this cat is ",{{"fontStyle", "italic"}});
-    Label lol2("very precious",{
+    Label sub1("A ");
+    Label sub2("beginner-first",{
         {"fontStyle", "italic"},
         {"backgroundColor", 0xFFED29FFu}
     });
-    Label lol3(". take good care of it, traveller.",{{"fontStyle", "italic"}});
+    Label sub3(" C++ GUI framework");
 
-    message.add(lol1, lol2, lol3);
+    HStack subtitle;
+    subtitle.setPadding(0);
+    subtitle.setWidth(340);
+    subtitle.add(sub1, sub2, sub3);
 
-    Image img("src/assets/funnycat.png");
-    img.setScale(0.4, 0.4);
 
+    Label pad("");
+    Label p("Get started by reading the documentation. Feel free to explore the codebase!");
 
-    /////////////////////
-    int counter = 0;
+    Button b(200, 50, ":)");
 
-    incrementBtn.onclick = [&] {
-        counter++;
-            bleh.setText("Count: " + std::to_string(counter));
-    };
-    
-    resetBtn.onclick = [&] {
-        counter = 0;
-            bleh.setText("Count: " + std::to_string(counter));
-    };
-    
-    slider.onchange = [&](float v) {
-        valueLabel.setText("Slider Value: " + std::to_string((int)v));
-        img.setScale(0.3 + v/200.0f, 0.3 + v/200.0f);
+    b.onclick = [&]() {
+        // open browser annd launch docs!?!?
     };
 
-    controls.setBackgroundColor(sf::Color(211, 163, 255, 220));controls.setHeight(570);
-    controls.add(
-        title,
-        valueLabel,
-        slider,
-        incrementBtn,
-        resetBtn
-    );
-
-    preview.add(
-        previewTitle,
-        dynamicText,
-        bleh,
-        message,
-        img
-    );
-
-    root.add(controls,&preview);
-
+    root.add(title, subtitle, pad, p, b);
     window.add(root);
+
     window.run();
 }

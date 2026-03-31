@@ -89,4 +89,11 @@ make docs
 
 Docs are written to `build/docs/html/index.html`.
 
+Useful generated pages:
+
+- `index.html` (overview + quickstart links)
+- `quickstart.html`
+- `widgets_guide.html` (widget-by-widget usage)
+- `screenshot_guide.html` (how to embed widget screenshots)
+
 Velvet docs use very clean CSS from [doxygen-awesome-css](https://github.com/jothepro/doxygen-awesome-css). Big ups to them!
