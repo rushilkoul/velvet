@@ -2,7 +2,7 @@
 <img src='/src/assets/READMEBanner.png'>
 <h1>Velvet</h1>
 
-<p>A high-level, beginner-friendly UI library for C++.</p>
+<p>A high-level, beginner-friendly GUI library for C++.</p>
 
 [![License](https://img.shields.io/github/license/rushilkoul/velvet?style=flat-square)](LICENSE)
 [![Language](https://img.shields.io/badge/language-C%2B%2B17-blue?style=flat-square)]()
