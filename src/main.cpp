@@ -1,4 +1,7 @@
 #include <velvet/core>
+#include <cstdlib>
+#include <array>
+#include <string>
 
 int main() {
     Window window(1000, 900, "Welcome to Velvet");
@@ -35,10 +38,31 @@ int main() {
     Label pad("");
     Label p("Get started by reading the documentation. Feel free to explore the codebase!");
 
-    Button b(100, 50, "Explore");
 
+    std::array<std::string, 4> examples = {
+        "ButtonExample",
+        "LabelExample",
+        "Dashboard",
+        "SignupExample"
+    };
+    int currentExample = 0;
 
-    root.add(logo, title, subtitle, pad, p, b);
+    Label nextLabel("Next example: " + examples[currentExample], {
+        {"fontSize", 20.f},
+    });
+
+    Button nextButton(200.f, 50.f, "Open Example");
+
+    nextButton.onclick = [&] {
+
+        std::string cmd = "./build/" + examples[currentExample] + " &";
+        std::system(cmd.c_str());
+
+        currentExample = (currentExample + 1) % static_cast<int>(examples.size());
+        nextLabel.setText("Next example: " + examples[currentExample]);
+    };
+
+    root.add(logo, title, subtitle, pad, p, nextLabel, nextButton);
     window.add(root);
 
     window.run();

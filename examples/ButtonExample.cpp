@@ -10,13 +10,13 @@ int main() {
         {"fontSize", 30.f},
     });
 
-    Button btn("Click me!");
+    Button btn(200, 50, "Click me!");
     btn.onclick = [&] {
         count++;
         counter.setText("Count: " + std::to_string(count));
     };
 
-    Button reset("Reset", {
+    Button reset(200, 50, "Reset", {
         {"backgroundColor", 0xFF736dFFu},
         {"outlineColor", 0xd3b020FFu},
         {"outlineThickness", 4.f},

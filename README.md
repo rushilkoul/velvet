@@ -1,5 +1,5 @@
 <div align="center">
-
+<img src='/src/assets/READMEBanner.png'>
 <h1>Velvet</h1>
 
 <p>A high-level, beginner-friendly UI library for C++.</p>

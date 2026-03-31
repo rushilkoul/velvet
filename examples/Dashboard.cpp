@@ -28,8 +28,8 @@ int main() {
 
     Slider slider(200, 0, 100);
 
-    Button incrementBtn("Increment counter");
-    Button resetBtn("Reset");
+    Button incrementBtn(300, 50, "Increment counter");
+    Button resetBtn(300, 50, "Reset");
 
     // right panel //////////////////////////////////
     VStack preview(20);
