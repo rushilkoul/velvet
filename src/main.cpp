@@ -1,7 +1,7 @@
 #include <velvet/core>
 
 int main() {
-    Window window(1000, 700, "Welcome to Velvet");
+    Window window(1000, 900, "Welcome to Velvet");
     VStack root(20);
 
     Stack stack(StackDirection::Horizontal, 10);
@@ -10,8 +10,12 @@ int main() {
     root.setWidth(1000);
     root.setPadding(0, 0, 50, 0);
 
+    Image logo("src/assets/VelvetLogo.png");
+    logo.setScale(0.25, 0.25);
+
     Label title("Welcome to Velvet!", {
         {"fontSize", 48.f },
+        {"fontStyle", "bold"}
     });
 
 
@@ -31,19 +35,10 @@ int main() {
     Label pad("");
     Label p("Get started by reading the documentation. Feel free to explore the codebase!");
 
-    Button b(":)", {
-        {"hoverFontColor", 0xFFFFFFFFu},
-        {"hoverBackgroundColor", 0x444444FFu},
-    });
-
-    Image img("src/assets/funnycat.png");
-    b.onclick = [&]() {
-        // open browser annd launch docs!?!?
-        img.setImage("src/assets/evilcat.png");
-    };
+    Button b(100, 50, "Explore");
 
 
-    root.add(title, subtitle, pad, p, b, img);
+    root.add(logo, title, subtitle, pad, p, b);
     window.add(root);
 
     window.run();

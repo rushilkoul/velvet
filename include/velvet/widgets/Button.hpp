@@ -65,15 +65,23 @@ public:
     /** @brief Process hover/press input events. */
     void handleEvent(const sf::Event &event, sf::RenderWindow &window) override;
 
-    /**
-     * @brief Create a button.
-     * @param width Button width in pixels.
-     * @param height Button height in pixels.
-     * @param label Text displayed in the center.
-     * @param borderColor Reserved for future border styling.
-     * @param borderThickness Reserved for future border styling.
-     */
-    Button(std::string label, std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styling = {});
+        /**
+         * @brief Create a button.
+         * @param width Button width in pixels.
+         * @param height Button height in pixels.
+         * @param label Text displayed in the center.
+         * @param styling Optional style map that overrides default visual properties
+         *               such as font, colors, and size (see class documentation
+         *               for supported keys).
+         * @param borderColor Border color (maps to the `outlineColor` style key).
+         * @param borderThickness Border thickness (maps to the `outlineThickness` style key).
+         */
+        Button(float width,
+            float height,
+            std::string label,
+            std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styling = {},
+            unsigned int borderColor = 0x000000FFu,
+            float borderThickness = 1.f);
 
     /** @brief Copy constructor. */
     Button(const Button& other);

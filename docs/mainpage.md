@@ -55,4 +55,4 @@ int main() {
 }
 @endcode
 
-### Head on over to @subpage quickstart "Quickstart" to learn how to use Velvet.
+### Head on over to @ref quickstart "Quickstart" to learn how to use Velvet.

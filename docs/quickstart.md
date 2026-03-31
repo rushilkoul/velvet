@@ -132,4 +132,4 @@ Some widgets load assets like fonts/textures with relative paths (example `src/a
 
 ## Widget Guide
 
-Head on over to the [Widget Guide](widgets.md) to find API references on all the widgets you can use within Velvet.
+Head on over to the @ref widgets_guide "Widget Guide" to find API references on all the widgets you can use within Velvet.

@@ -4,16 +4,26 @@
 #include <velvet/widgets/Button.hpp>
 #include <iostream>
 
-Button::Button(std::string label, std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styling) {
+Button::Button(float width,
+               float height,
+               std::string label,
+               std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styling,
+               unsigned int borderColor,
+               float borderThickness) {
     x = 0;
     y = 0;
     hovered = false;
     clicked = false;
 
+    styling["width"] = width;
+    styling["height"] = height;
+    styling["outlineColor"] = borderColor;
+    styling["outlineThickness"] = borderThickness;
+
     overrideStyling(styling);
 
     shape.setPosition(x, y);
-    shape.setSize(sf::Vector2f(width, height));
+    shape.setSize(sf::Vector2f(this->width, this->height));
 
     text.setString(label);
 
@@ -21,7 +31,7 @@ Button::Button(std::string label, std::unordered_map<std::string, std::variant<u
     sf::FloatRect textBounds = text.getLocalBounds();
     text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
 
-    text.setPosition(x + width / 2.0f, y + height / 2.0f);
+    text.setPosition(x + this->width / 2.0f, y + this->height / 2.0f);
 }
 
 Button::Button(const Button& other)
