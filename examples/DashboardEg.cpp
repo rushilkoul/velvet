@@ -43,7 +43,6 @@ int main() {
         {"fontSize", 40.f}, 
         {"fillColor", 0xA447FAFFu},
         {"fontStyle", "bold"},
-        {"fontPath", "src/assets/space-grotesk.ttf"}
     });
 
     Label bleh("Counter: 0");
@@ -82,7 +81,8 @@ int main() {
         img.setScale(0.3 + v/200.0f, 0.3 + v/200.0f);
     };
 
-    controls.setBackgroundColor(sf::Color(211, 163, 255, 220));controls.setHeight(570);
+    controls.setBackgroundColor(sf::Color(211, 163, 255, 220));
+    controls.setHeight(570);
     controls.add(
         title,
         valueLabel,

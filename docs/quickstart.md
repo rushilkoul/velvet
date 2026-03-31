@@ -15,20 +15,20 @@ This includes all the core basic layout and widget components needed for velvet 
 ## 2) Window & Layout
 The application runs inside a `Window`, constructed with the `width`, `height`, and the `title` as parameters.
 @code{.cpp}
-Window window(width, height, title);
+Window window(float width, float height, std::string title);
 @endcode
 
 Velvet uses a `Stack` for layout and positioning. Stacks exist in Vertical or Horizontal directions and can be declared as follows:
 
 @code{.cpp}
-Stack stack(StackDirection::Horizontal, gap);   // horizontal stack
-Stack stack(StackDirection::Vertical, gap);     // vertical stack
+Stack stack(StackDirection::Horizontal, float gap);   // horizontal stack
+Stack stack(StackDirection::Vertical, float gap);     // vertical stack
 @endcode
 For convenience, you can use the shorthand `HStack` and `VStack` declarations:
 
 @code{.cpp}
-HStack stack(gap);    // horizontal stack
-VStack stack(gap);    // vertical stack
+HStack stack(float gap);    // horizontal stack
+VStack stack(float gap);    // vertical stack
 @endcode
 
 `gap` is the spacing between child elements of the layout stacks (similar to flexbox gap in CSS)

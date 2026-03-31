@@ -1,8 +1,10 @@
 # Velvet
 
-A beginner-friendly GUI framework built on SFML for creating beautiful desktop applications in C++.
+Velvet is a high-level GUI framework built on SFML that brings modern layout systems and composable widgets to C++.
 
 Instead of dealing with low-level frameworks directly, Velvet provides high-level components like buttons, sliders, and layout systems _that just work_. It handles rendering, layout, and interaction internally so you can focus on building your app.
+
+
 
 ## Quick example usage
 
@@ -61,6 +63,7 @@ git clone https://github.com/rushilkoul/velvet.git
 cd velvet
 ```
 ```bash
+make rebuild # build the app for first-time use
 make run   # runs src/main.cpp
 ```
 **VSCode Users:** Install the [clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd) extension for proper (better) C++ support.
@@ -68,7 +71,7 @@ make run   # runs src/main.cpp
 
 ### Building docs
 
-install Doxygen:
+Install Doxygen:
 
 ```bash
 # Fedora/RH
@@ -89,11 +92,4 @@ make docs
 
 Docs are written to `build/docs/html/index.html`.
 
-Useful generated pages:
-
-- `index.html` (overview + quickstart links)
-- `quickstart.html`
-- `widgets_guide.html` (widget-by-widget usage)
-- `screenshot_guide.html` (how to embed widget screenshots)
-
-Velvet docs use very clean CSS from [doxygen-awesome-css](https://github.com/jothepro/doxygen-awesome-css). Big ups to them!
+Velvet doxygen docs use very clean CSS from [doxygen-awesome-css](https://github.com/jothepro/doxygen-awesome-css). Big ups to them!

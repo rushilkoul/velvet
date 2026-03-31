@@ -39,3 +39,11 @@ sf::Vector2f Image::getDimensions() {
 void Image::setScale(float scaleFactorX, float scaleFactorY) {
     imageSprite.setScale(scaleFactorX, scaleFactorY);
 }
+
+void Image::setImage(std::string filePath) {
+    if (!imageTexture.loadFromFile(filePath)) {
+        std::cerr << "\033[33m[Warning] (Image) Failed to load image: '" << filePath << "'\033[0m" << std::endl;
+    }
+
+    imageSprite.setTexture(imageTexture);
+}

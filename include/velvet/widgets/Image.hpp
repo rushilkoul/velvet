@@ -32,4 +32,10 @@ public:
      * @brief Scale sprite along x/y axes.
      */
     void setScale(float scaleFactorX, float scaleFactorY);
+
+    /**
+     * @brief Set image from disk.
+     * @param filePath Path to image file.
+     */
+    void setImage(std::string filePath);
 };

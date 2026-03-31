@@ -1,8 +1,8 @@
 # Doxygen configuration for Velvet
 
 PROJECT_NAME           = "Velvet"
-PROJECT_NUMBER         = "@PROJECT_VERSION@"
-PROJECT_BRIEF          = "A beginner-friendly C++ GUI framework built on SFML"
+PROJECT_NUMBER         = "0.1a"
+PROJECT_BRIEF          = "A beginner-friendly C++ GUI framework built on SFML."
 OUTPUT_DIRECTORY       = "@CMAKE_CURRENT_BINARY_DIR@/docs"
 
 CREATE_SUBDIRS         = NO
