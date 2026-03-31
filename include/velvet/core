@@ -22,3 +22,4 @@
 #include <velvet/widgets/Slider.hpp>
 #include <velvet/widgets/Label.hpp>
 #include <velvet/widgets/Image.hpp>
+#include <velvet/widgets/InputField.hpp>
