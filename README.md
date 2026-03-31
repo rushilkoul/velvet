@@ -64,3 +64,29 @@ cd velvet
 make run   # runs src/main.cpp
 ```
 **VSCode Users:** Install the [clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd) extension for proper (better) C++ support.
+
+
+### Building docs
+
+install Doxygen:
+
+```bash
+# Fedora/RH
+sudo dnf install doxygen
+
+# Arch
+yay -S doxygen
+
+# Ubuntu/Debian
+sudo apt install doxygen
+```
+
+then:
+
+```bash
+make docs
+```
+
+Docs are written to `build/docs/html/index.html`.
+
+Velvet docs use very clean CSS from [doxygen-awesome-css](https://github.com/jothepro/doxygen-awesome-css). Big ups to them!

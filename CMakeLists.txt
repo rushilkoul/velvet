@@ -67,3 +67,31 @@ endif()
 
 add_executable(velvet_app src/main.cpp)
 target_link_libraries(velvet_app PRIVATE velvet)
+
+option(VELVET_BUILD_DOCS "Build API documentation with Doxygen" OFF)
+
+if(VELVET_BUILD_DOCS)
+    find_package(Doxygen QUIET)
+
+    if(DOXYGEN_FOUND)
+        set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
+        set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+
+        configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+
+        add_custom_target(docs
+            COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+            COMMAND ${CMAKE_COMMAND} -E echo "Docs index: file://${CMAKE_CURRENT_BINARY_DIR}/docs/html/index.html"
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+            COMMENT "Generating API documentation with Doxygen"
+            VERBATIM
+        )
+    else()
+        add_custom_target(docs
+            COMMAND ${CMAKE_COMMAND} -E echo "Doxygen is not installed. Install it and rebuild target 'docs'."
+            COMMENT "Doxygen not found"
+            VERBATIM
+        )
+        message(STATUS "Doxygen not found. 'docs' target prints installation guidance.")
+    endif()
+endif()
