@@ -31,7 +31,10 @@ int main() {
     Label pad("");
     Label p("Get started by reading the documentation. Feel free to explore the codebase!");
 
-    Button b(200, 50, ":)");
+    Button b(":)", {
+        {"hoverFontColor", 0xFFFFFFFFu},
+        {"hoverBackgroundColor", 0x444444FFu},
+    });
 
     Image img("src/assets/funnycat.png");
     b.onclick = [&]() {

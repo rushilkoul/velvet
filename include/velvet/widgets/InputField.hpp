@@ -84,10 +84,11 @@ public:
      */
     void overrideStyling(std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styling);
 
-    //getters
+    /** @brief Get text content in the field. */
     std::string getContent();
+    /** @brief Get value of placeholder text . */
     std::string getPlaceholder();
 
-    //setters
+    /** @brief Set value of placeholder. */
     void setPlaceholder(std::string placeholderString);
 };

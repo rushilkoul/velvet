@@ -4,41 +4,18 @@
 #include <velvet/widgets/Button.hpp>
 #include <iostream>
 
-Button::Button(float width, float height, std::string label, sf::Color borderColor, int borderThickness) : height(height), width(width) {
+Button::Button(std::string label, std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styling) {
     x = 0;
     y = 0;
     hovered = false;
     clicked = false;
 
-    primaryColor = sf::Color(164, 71, 251);
-    hoverColor = sf::Color::Yellow;
-    clickColor = sf::Color::Red;
+    overrideStyling(styling);
 
-    std::string texturePath = "src/assets/btn.png";
-    if (!defaultTexture.loadFromFile(texturePath)) {
-        std::cerr << "\033[33m[Warning] (Button) Failed to load texture: '" << texturePath << "'\033[0m" << std::endl;
-    }
+    shape.setPosition(x, y);
+    shape.setSize(sf::Vector2f(width, height));
 
-    sprite.setTexture(defaultTexture);
-    sprite.setPosition(x, y);
-
-    // ---logic for resizing the sprite---
-    sf::Vector2u textureSize = defaultTexture.getSize();
-
-    float scaleFactorX = width / textureSize.x;
-    float scaleFactorY = height / textureSize.y;
-
-    sprite.setScale(scaleFactorX, scaleFactorY);
-
-    std::string fontPath = "src/assets/AdwaitaSans-Regular.ttf";
-    if (!font.loadFromFile(fontPath)) {
-        std::cerr << "\033[33m[Warning] (Button) Failed to load font: '" << fontPath << "'\033[0m" << std::endl;
-    }
-
-    text.setFont(font);
     text.setString(label);
-    text.setCharacterSize(20);
-    text.setFillColor(sf::Color::Black);
 
     // setting origin of text to its center
     sf::FloatRect textBounds = text.getLocalBounds();
@@ -49,26 +26,18 @@ Button::Button(float width, float height, std::string label, sf::Color borderCol
 
 Button::Button(const Button& other)
     : Widget(other),
-      defaultTexture(other.defaultTexture),
-      hoverTexture(other.hoverTexture),
-      clickTexture(other.clickTexture),
-      sprite(other.sprite),
+      shape(other.shape),
       text(other.text),
-      primaryColor(other.primaryColor),
-      hoverColor(other.hoverColor),
-      clickColor(other.clickColor),
-      borderColor(other.borderColor),
-      borderThickness(other.borderThickness),
+      styles(other.styles),
       hovered(other.hovered),
       clicked(other.clicked)
 {
     // reassign font pointer to THIS object's font
     text.setFont(font);
-    sprite.setTexture(defaultTexture);
 }
 
 void Button::draw(sf::RenderWindow &window) {
-    window.draw(sprite);
+    window.draw(shape);
     window.draw(text);
 }
 
@@ -77,11 +46,18 @@ void Button::update(sf::RenderWindow &window) {
     sf::Cursor cursor;
 
     // checking if mouse is hovering the button
-    if (sprite.getGlobalBounds().contains(mousePosition)) {
+    if (shape.getGlobalBounds().contains(mousePosition)) {
         if (cursor.loadFromSystem(sf::Cursor::Hand)) window.setMouseCursor(cursor);
+
+        text.setFillColor(sf::Color(std::get<unsigned int>(styles.at("hoverFontColor"))));
+        shape.setFillColor(sf::Color(std::get<unsigned int>(styles.at("hoverBackgroundColor"))));
+
         hovered = true;
     }
     else {
+        text.setFillColor(sf::Color(std::get<unsigned int>(styles.at("fontColor"))));
+        shape.setFillColor(sf::Color(std::get<unsigned int>(styles.at("backgroundColor"))));
+
         hovered = false;
     }
 }
@@ -102,10 +78,40 @@ void Button::handleEvent(const sf::Event &event, sf::RenderWindow &window) {
 }
 
 void Button::setPosition(float x, float y) {
-    sprite.setPosition(x, y);
+    shape.setPosition(x, y);
     text.setPosition(x + width / 2.0f, y + height / 2.0f);
 }
 
 sf::Vector2<float> Button::getDimensions() {
     return sf::Vector2f(width, height);
+}
+
+void Button::overrideStyling(std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styling) {
+
+    for (auto& [key, val] : styling) {
+        if(styles.contains(key)) {
+            styles[key] = val;
+        }
+        else {
+        std::cerr << "\033[33m[Warning] (Button) Invalid style property: '" << key << "'\033[0m" << std::endl;
+       }
+    }
+
+    std::string customFontPath;
+    customFontPath = std::get<std::string>(styles.at("fontPath"));
+    if (!font.loadFromFile(customFontPath)) {
+        std::cerr << "\033[33m[Warning] (Button) Failed to load font: '" << customFontPath << "'\033[0m" << std::endl;
+    }
+
+    width = std::get<float>(styles.at("width"));
+    height = std::get<float>(styles.at("height"));
+
+    shape.setFillColor(sf::Color(std::get<unsigned int>(styles.at("backgroundColor"))));
+    shape.setOutlineColor(sf::Color(std::get<unsigned int>(styles.at("outlineColor"))));
+    shape.setOutlineThickness(std::get<float>(styles.at("outlineThickness")));
+
+    text.setFont(font);
+    text.setCharacterSize(std::get<float>(styles.at("fontSize")));
+    text.setLetterSpacing(std::get<float>(styles.at("letterSpacing")));
+    text.setFillColor(sf::Color(std::get<unsigned int>(styles.at("fontColor"))));
 }

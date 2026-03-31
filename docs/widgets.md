@@ -131,13 +131,32 @@ Label text("Hello, world!", {
 
 ## Button
 
-`Button` implements, well, a button.
+`Button` implements, well, a button. Supports a style map in the constructor.
 
 ### Constructor
 
 @code{.cpp}
-Button save(float width, float height, std::string buttonText);
+Button btn("Click me!");    // default styling options
+// or
+Button btn("Click me!", {
+  {"fontSize", 30.f},
+  {"backgroundColor", 0x3e3e3eFFu}
+  ...
+});
 @endcode
+
+### Supported style keys:
+- `fontPath` (`std::string`) default: `"src/assets/AdwaitaSans-Regular.ttf"`
+- `fontSize` (`float`)
+- `letterSpacing` (`float`)
+- `fontColor` (`unsigned int`, RGBA hex like `0xRRGGBBAA`)
+- `hoverFontColor` (`unsigned int`) font color when button is hovered
+- `outlineColor` (`unsigned int`) outline of the button
+- `outlineThickness` (`float`) outline thickness
+- `backgroundColor` (`unsigned int`) background color of the button
+- `hoverBackgroundColor` (`unsigned int`) intended background color when button is hovered
+- `width` (`float`) width of the button; default: `200.f` 
+- `height` (`float`) height of the button; default: `50.f`
 
 ### Event callback
 
@@ -147,6 +166,9 @@ btn.onclick = [&] {
   // your action
 };
 @endcode
+
+### Runtime usage
+- `overrideStyling({...})` - Update styling keys on runtime.
 
 ---
 
@@ -207,10 +229,11 @@ InputField nameField("Enter your name", {
 
 ### Runtime usage
 - `overrideStyling({...})` - Update styling keys on runtime
+- `setPlaceholder(std::string placeholderString)` - Update the placeholder text
 
-**Public variables:**
-- `content` - (`std::string`) Read or modify the current content
-- `placeholder` - (`std::string`) Modify to update placeholder text 
+**Getter functions:**
+- `std::string getContent()` - Returns the current content
+- `std::string gePlaceholder()` - Returns the current placeholder
 
 ---
 

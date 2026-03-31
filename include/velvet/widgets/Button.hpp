@@ -1,28 +1,50 @@
 #pragma once
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <velvet/base/Widget.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <functional>
+#include <unordered_map>
+#include <variant>
 
 /**
  * @brief Clickable button widget with text label.
  *
  * Assign a lambda to @ref onclick to react to left-click presses.
+ *
+ * Supported style keys (`std::unordered_map<std::string, std::variant<unsigned int, float, std::string>>`):
+ * - `fontPath` (`std::string`)
+ * - `fontSize` (`float`)
+ * - `letterSpacing` (`float`)
+ * - `fontColor` (`unsigned int`, RGBA hex like `0xRRGGBBAA`)
+ * - `hoverFontColor` (`unsigned int`)
+ * - `outlineColor` (`unsigned int`)
+ * - `outlineThickness` (`float`)
+ * - `backgroundColor` (`unsigned int`)
+ * - `hoverBackgroundColor` (`unsigned int`)
+ * - `width` (`float`)
+ * - `height` (`float`)
  */
 class Button : public Widget {
-    sf::Texture defaultTexture;
-    sf::Texture hoverTexture;
-    sf::Texture clickTexture;
 
     sf::Sprite sprite;
     sf::Text text;
+    sf::RectangleShape shape;
+    sf::Font font;
 
-    sf::Color primaryColor;
-    sf::Color hoverColor;
-    sf::Color clickColor;
-    sf::Color borderColor;
-    
-    int borderThickness;
+    std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styles = {
+        {"fontPath", "src/assets/AdwaitaSans-Regular.ttf"},
+        {"fontSize", 20.f},
+        {"letterSpacing", 1.f},
+        {"fontColor", 0x000000FFu},
+        {"hoverFontColor", 0x000000FFu},
+        {"outlineColor", 0x000000FFu},
+        {"outlineThickness", 1.f},
+        {"backgroundColor", 0xFFFFFFFFu},
+        {"hoverBackgroundColor", 0xEEEEEEFFu},
+        {"width", 200.f},
+        {"height", 50.f}
+    };
 
     bool hovered;
     bool clicked;
@@ -51,7 +73,7 @@ public:
      * @param borderColor Reserved for future border styling.
      * @param borderThickness Reserved for future border styling.
      */
-    Button(float width=100, float height=50, std::string label="button", sf::Color borderColor = sf::Color::White, int borderThickness = 0);
+    Button(std::string label, std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styling = {});
 
     /** @brief Copy constructor. */
     Button(const Button& other);
@@ -61,4 +83,11 @@ public:
 
     /** @brief Get button dimensions. */
     sf::Vector2<float> getDimensions() override;
+
+    /**
+     * @brief Apply/override style properties.
+     *
+     * Unknown keys are ignored with a warning.
+     */
+    void overrideStyling(std::unordered_map<std::string, std::variant<unsigned int, float, std::string>> styling);
 };
